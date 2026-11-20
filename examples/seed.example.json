@@ -1,0 +1,101 @@
+{
+  "_comment": "Example seed for the local SQLite store. Copy to data/seed.json, replace with your own history, then run: npx tsx src/cli.ts db import --json data/seed.json. Import is an upsert by id, so edit and re-run it as often as you like. ids can be any unique string; bullets point at an experience by its id. Column reference: src/db/schema.sql.",
+
+  "job_experiences": [
+    {
+      "id": "exp-acme",
+      "company": "Acme Corp",
+      "location": "Remote",
+      "default_title": "Senior Frontend Engineer",
+      "alt_titles": ["Senior Software Engineer", "Frontend Lead"],
+      "start_date": "2022-03-01",
+      "end_date": null,
+      "sort": 1
+    },
+    {
+      "id": "exp-widgets",
+      "company": "Widgets Inc",
+      "location": "Salt Lake City, Utah",
+      "default_title": "Software Engineer",
+      "alt_titles": ["Fullstack Engineer"],
+      "start_date": "2019-06-01",
+      "end_date": "2022-02-01",
+      "sort": 2
+    }
+  ],
+
+  "resume_bullets": [
+    {
+      "id": "b-acme-ds",
+      "experience": "exp-acme",
+      "bullet_point": "Led the rebuild of Acme's React design system, cutting UI bug reports 40% across 6 product teams.",
+      "themes": ["Design Systems", "Frontend"],
+      "credit": "led",
+      "notes": "Context for the AI, never rendered: 30 components, Storybook + visual regression, adopted by every team within two quarters.",
+      "reviewed": true,
+      "variants": [
+        {
+          "text": "Led Acme's React design system rebuild, cutting UI bugs 40%.",
+          "kind": "one_line",
+          "approved": "2026-01-15"
+        }
+      ]
+    },
+    {
+      "id": "b-acme-a11y",
+      "experience": "exp-acme",
+      "bullet_point": "Built automated WCAG 2.2 checks into CI, catching accessibility regressions before review.",
+      "themes": ["Accessibility", "Frontend"],
+      "credit": "built"
+    },
+    {
+      "id": "b-acme-perf",
+      "experience": "exp-acme",
+      "bullet_point": "Built route-level code splitting for the Next.js app, halving initial bundle size.",
+      "themes": ["Performance", "Frontend"],
+      "credit": "built"
+    },
+    {
+      "id": "b-widgets-api",
+      "experience": "exp-widgets",
+      "bullet_point": "Helped build a TypeScript GraphQL API serving 2M requests a day.",
+      "themes": ["Full-Stack Engineering"],
+      "credit": "contributed"
+    },
+    {
+      "id": "b-widgets-onboarding",
+      "experience": "exp-widgets",
+      "bullet_point": "Built a guided onboarding flow that raised week-one activation 12%.",
+      "themes": ["Growth", "Frontend"],
+      "credit": "built"
+    }
+  ],
+
+  "resume_skills": [
+    { "category": "Frontend", "name": "TypeScript", "proficiency": 5, "sort": 0 },
+    { "category": "Frontend", "name": "React", "proficiency": 5, "sort": 1 },
+    { "category": "Frontend", "name": "Next.js", "proficiency": 4, "sort": 2 },
+    { "category": "Accessibility", "name": "WCAG 2.2", "proficiency": 4, "sort": 0 },
+    { "category": "Backend", "name": "Node.js", "proficiency": 4, "sort": 0 },
+    { "category": "Backend", "name": "GraphQL", "proficiency": 3, "sort": 1 }
+  ],
+
+  "job_sites": [
+    {
+      "id": "site-anthropic",
+      "name": "Anthropic",
+      "url": "https://www.anthropic.com/careers",
+      "provider": "Greenhouse",
+      "provider_config": { "board_token": "anthropic" },
+      "interest_level": 5
+    },
+    {
+      "id": "site-linear",
+      "name": "Linear",
+      "url": "https://linear.app/careers",
+      "provider": "Ashby",
+      "provider_config": { "org": "linear" },
+      "interest_level": 4
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+node_modules/
+out/
+build/
+.env
+*.local
+.DS_Store
+specs/triage/
+.playwright-mcp/
+specs/feedback/
+.claude/retro/pending-cursor.json
+
+# Local SQLite store (database, attached PDFs, your seed file)
+data/
+
+# Real résumé/letter PDFs (contain contact details); keep locally, never commit
+examples/*.pdf

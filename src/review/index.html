@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Triage Review</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='4' fill='%232f5bd3'/></svg>">
+<style>
+  :root {
+    --bg: #f6f5f2;
+    --panel: #ffffff;
+    --ink: #1c1b19;
+    --ink-2: #57544e;
+    --ink-3: #8a867e;
+    --line: #e4e1da;
+    --accent: #2f5bd3;
+    --archive: #b4432f;
+    --new: #5b6470;
+    --interested: #1f7a4d;
+    --hl: #fff2b3;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #151514;
+      --panel: #1d1d1b;
+      --ink: #ecebe7;
+      --ink-2: #b3b0a8;
+      --ink-3: #7d7a73;
+      --line: #2e2d2a;
+      --accent: #7c9cf5;
+      --archive: #e0735f;
+      --new: #9aa3ae;
+      --interested: #4cc38a;
+      --hl: #4a4121;
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .app { display: grid; grid-template-columns: minmax(340px, 38%) 1fr; height: 100vh; }
+
+  /* ── Left: the details ─────────────────────────────────────────── */
+  .details { display: flex; flex-direction: column; padding: 32px 36px 24px; overflow-y: auto; }
+  .progress { display: flex; align-items: center; gap: 12px; color: var(--ink-3); font-size: 12px;
+    letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; }
+  .bar { flex: 1; height: 3px; background: var(--line); border-radius: 2px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; background: var(--accent); width: 0; transition: width 0.2s; }
+
+  .company { margin: 36px 0 6px; font-size: 16px; font-weight: 600; color: var(--ink-2); }
+  h1 { margin: 0; font-size: 30px; line-height: 1.2; letter-spacing: -0.01em; font-weight: 700; text-wrap: balance; }
+
+  .comp { margin-top: 26px; }
+  .label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+  .comp .value { font-size: 24px; font-weight: 650; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .comp .value.none { font-size: 16px; font-weight: 500; color: var(--ink-3); }
+
+  .facts { margin-top: 22px; display: grid; grid-template-columns: auto 1fr; gap: 10px 18px; align-items: baseline; }
+  .facts .v { color: var(--ink); }
+  .pill { display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 12px; font-weight: 600;
+    border: 1px solid var(--line); color: var(--ink-2); margin-left: 6px; vertical-align: 1px; }
+  .pill.remote { color: var(--interested); border-color: currentColor; }
+  .pill.hybrid { color: var(--accent); border-color: currentColor; }
+  .bonus { display: inline-flex; gap: 3px; vertical-align: -1px; }
+  .bonus i { width: 9px; height: 9px; border-radius: 2px; background: var(--line); }
+  .bonus i.on { background: var(--accent); }
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+  .chip { font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 6px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
+  .chip b { font-weight: 700; opacity: 0.7; margin-left: 3px; }
+  .ai { margin-top: 22px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+  .ai-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .ai-score { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .ai-score small { font-size: 13px; font-weight: 600; color: var(--ink-3); }
+  .ai-rank { font-size: 12px; color: var(--ink-3); }
+  .ai-summary { margin-top: 6px; font-weight: 600; color: var(--ink); }
+  .ai-why { margin-top: 6px; color: var(--ink-2); font-size: 14px; line-height: 1.55; }
+  .ai.none { color: var(--ink-3); font-size: 13px; }
+  .status { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase; vertical-align: 2px; }
+  .status.new { background: color-mix(in srgb, var(--interested) 14%, transparent); color: var(--interested); }
+  .status.triage { background: color-mix(in srgb, var(--new) 14%, transparent); color: var(--new); }
+  .keywords { margin-top: 22px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag { font-size: 13px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+  .tags .none { color: var(--ink-3); font-size: 13px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .spacer { flex: 1; min-height: 24px; }
+  .keys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .key { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 8px 12px;
+    border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--ink);
+    font: inherit; cursor: pointer; box-shadow: var(--shadow); transition: transform 0.08s, border-color 0.15s; }
+  .key:hover { border-color: var(--ink-3); }
+  .key:active, .key.flash { transform: scale(0.97); }
+  .key kbd { font: 700 26px/1 -apple-system, system-ui, sans-serif; }
+  .key span { font-size: 13px; font-weight: 600; }
+  .key.archive kbd { color: var(--archive); }
+  .key.new kbd { color: var(--new); }
+  .key.interested kbd { color: var(--interested); }
+  .minor { margin-top: 12px; color: var(--ink-3); font-size: 12px; text-align: center; }
+  .minor kbd { font: 600 11px ui-monospace, Menlo, monospace; border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+
+  /* ── Right: the description ────────────────────────────────────── */
+  .desc-wrap { height: 100vh; padding: 20px 20px 20px 0; }
+  .desc { position: relative; height: 100%; overflow-y: auto; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 14px; box-shadow: var(--shadow); padding: 32px 40px; }
+  .desc-body { max-width: 72ch; white-space: pre-wrap; color: var(--ink); font-size: 15px; line-height: 1.65; }
+  .desc-body mark { background: var(--hl); color: inherit; border-radius: 3px; padding: 0 2px; }
+  .desc-empty { color: var(--ink-3); font-style: italic; }
+
+  .toast { position: fixed; left: 36px; bottom: 20px; background: var(--ink); color: var(--bg); padding: 8px 14px;
+    border-radius: 8px; font-size: 13px; font-weight: 500; opacity: 0; transform: translateY(6px);
+    transition: opacity 0.15s, transform 0.15s; pointer-events: none; }
+  .toast.show { opacity: 1; transform: none; }
+  .toast.error { background: var(--archive); color: #fff; }
+
+  .center { grid-column: 1 / -1; display: grid; place-items: center; text-align: center; color: var(--ink-2); }
+  .center h2 { margin: 0 0 6px; color: var(--ink); }
+
+  @media (max-width: 800px) {
+    .app { grid-template-columns: 1fr; height: auto; }
+    .desc-wrap { height: auto; padding: 0 16px 16px; }
+    .desc { height: 70vh; padding: 20px; }
+    .details { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="app" id="app"><div class="center"><div><h2>Loading…</h2>Fetching the triage queue.</div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const state = { queue: [], index: 0, done: 0, total: 0, history: [], busy: false };
+const $ = (s) => document.querySelector(s);
+
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const money = (n) => (n >= 1000 ? `$${(n / 1000).toFixed(n % 1000 ? 1 : 0)}k` : `$${n}`);
+function comp(o) {
+  if (o.salary_min && o.salary_max) return `${money(o.salary_min)} – ${money(o.salary_max)}`;
+  if (o.salary_min) return `${money(o.salary_min)}+`;
+  if (o.salary_max) return `up to ${money(o.salary_max)}`;
+  return null;
+}
+function workMode(r) {
+  if (r === "fully_remote") return '<span class="pill remote">Remote</span>';
+  if (r === "hybrid") return '<span class="pill hybrid">Hybrid</span>';
+  if (r === "on_site") return '<span class="pill">On-site</span>';
+  return "";
+}
+function ago(d) {
+  if (!d) return "";
+  const days = Math.round((Date.now() - Date.parse(d + "T00:00:00Z")) / 86400000);
+  return days <= 0 ? "today" : days === 1 ? "yesterday" : `${days} days ago`;
+}
+// Highlight the terms the match bonus and Carson care about.
+const HL = /(WCAG[\w.\s]{0,4}|design[- ]systems?|accessib\w+|a11y|screen readers?|design tokens?|figma|react|typescript|next\.?js|LLMs?|agentic|AI agents?|MCP|evals)/gi;
+const hl = (t) => esc(t).replace(HL, "<mark>$1</mark>");
+// The first line that starts a list (•, -, –, *, "1.") or mentions "qualifications": the substance of
+// most JDs starts there, below the company boilerplate. The page scrolls to it on each new job.
+const JUMP = /^[ \t]*(?:[•·\-–—*]|\d+[.)])\s|qualifications/im;
+function descHtml(t) {
+  const tidy = String(t).replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+  const m = JUMP.exec(tidy);
+  if (!m) return hl(tidy);
+  const lineStart = tidy.lastIndexOf("\n", m.index) + 1;
+  return hl(tidy.slice(0, lineStart)) + '<span id="jump"></span>' + hl(tidy.slice(lineStart));
+}
+function jumpToSubstance() {
+  const desc = $("#desc"), mark = $("#jump");
+  if (!desc) return;
+  // Leave ~2 lines of context above the first list/qualifications line.
+  desc.scrollTop = mark ? Math.max(0, mark.offsetTop - 56) : 0; // .desc is the offsetParent
+}
+
+function render() {
+  const o = state.queue[state.index];
+  const app = $("#app");
+  if (!o) {
+    app.innerHTML = `<div class="center"><div><h2>Queue clear</h2>${state.done} decided this session. <kbd>Z</kbd> to undo the last one.</div></div>`;
+    return;
+  }
+  const c = comp(o);
+  const bonus = o.match_bonus ?? 0;
+  const badges = (o.bonusChips || []).filter((c) => c.group !== "keyword");
+  const keywords = (o.bonusChips || []).filter((c) => c.group === "keyword");
+  const pct = state.total ? (state.done / state.total) * 100 : 0;
+  app.innerHTML = `
+    <section class="details">
+      <div class="progress"><span>${state.done + 1} of ${state.total}</span><div class="bar"><i style="width:${pct}%"></i></div></div>
+      <div class="company">${esc(o.company)}<span class="status ${o.status}">${o.status === "new" ? "AI kept" : "Untriaged"}</span></div>
+      <h1>${esc(o.job_title)}</h1>
+      ${o.match_percentage != null
+        ? `<div class="ai">
+            <div class="ai-head"><span class="label">AI triage</span><span class="ai-score">${o.match_percentage}<small>/100</small></span><span class="ai-rank">rank ${o.rankScore} = ${o.match_percentage} + 3 × ${bonus} bonus</span></div>
+            ${o.summary ? `<div class="ai-summary">${esc(o.summary)}</div>` : ""}
+            ${o.chain_of_thought ? `<div class="ai-why">${esc(o.chain_of_thought)}</div>` : ""}
+          </div>`
+        : `<div class="ai none">Not AI-triaged yet (run /triage to score it).</div>`}
+      <div class="comp">
+        <div class="label">Compensation</div>
+        <div class="value ${c ? "" : "none"}">${c ? esc(c) : "Not listed (check the description)"}</div>
+      </div>
+      <div class="facts">
+        <div class="label">Location</div><div class="v">${esc(o.location || "Not listed")}${workMode(o.remote)}</div>
+        <div class="label">Listed</div><div class="v">${o.listing_date ? `${esc(o.listing_date)} <span style="color:var(--ink-3)">· ${ago(o.listing_date)}</span>` : "Unknown"}</div>
+        <div class="label">Match bonus</div><div class="v"><span class="bonus">${Array.from({ length: 12 }, (_, i) => `<i class="${i < bonus ? "on" : ""}"></i>`).join("")}</span> <span style="color:var(--ink-3)">+${bonus}</span>${
+          badges.length
+            ? `<div class="chips">${badges.map((c) => `<span class="chip">${esc(c.chip)}${c.points > 1 ? `<b>+${c.points}</b>` : ""}</span>`).join("")}</div>`
+            : ""
+        }</div>
+        <div class="label">Posting</div><div class="v">${o.application_url ? `<a href="${esc(o.application_url)}" target="_blank" rel="noopener">Open ↗</a> <span style="color:var(--ink-3)">(O)</span>` : "No link"}</div>
+      </div>
+      <div class="keywords">
+        <div class="label">Keywords</div>
+        <div class="tags">${keywords.length ? keywords.map((c) => `<span class="tag">${esc(c.chip)}</span>`).join("") : '<span class="none">None of the tracked keywords</span>'}</div>
+      </div>
+      <div class="spacer"></div>
+      <div class="keys">
+        <button class="key archive" data-act="archive"><kbd>←</kbd><span>Archive</span></button>
+        <button class="key interested" data-act="interested"><kbd>↑</kbd><span>Interested</span></button>
+        <button class="key new" data-act="new"><kbd>→</kbd><span>New</span></button>
+      </div>
+      <div class="minor"><kbd>↓</kbd> skip for now · <kbd>Z</kbd> undo · <kbd>J</kbd>/<kbd>K</kbd> scroll · <kbd>T</kbd> top of description</div>
+    </section>
+    <section class="desc-wrap"><div class="desc" id="desc">
+      ${o.description ? `<div class="desc-body">${descHtml(o.description)}</div>` : '<div class="desc-empty">No description was captured for this posting. Press O to open it.</div>'}
+    </div></section>`;
+  app.querySelectorAll("[data-act]").forEach((b) => b.addEventListener("click", () => decide(b.dataset.act)));
+  jumpToSubstance();
+}
+
+let toastTimer;
+function toast(msg, error = false) {
+  const t = $("#toast");
+  t.textContent = msg;
+  t.className = `toast show${error ? " error" : ""}`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => (t.className = "toast"), error ? 4000 : 1400);
+}
+function flash(act) { const k = document.querySelector(`[data-act="${act}"]`); if (k) { k.classList.add("flash"); setTimeout(() => k.classList.remove("flash"), 120); } }
+
+async function post(body) {
+  const r = await fetch("/api/decide", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || r.statusText);
+}
+
+const LABEL = { archive: "Archived", new: "Kept as New", interested: "Interested ★", skip: "Skipped for now" };
+
+async function decide(act) {
+  const o = state.queue[state.index];
+  if (!o) return;
+  flash(act);
+  if (act === "skip") {
+    // Move it to the back of the queue; nothing is written.
+    state.queue.splice(state.index, 1);
+    state.queue.push(o);
+    state.history.push({ act, item: o });
+    toast(LABEL.skip);
+    render();
+    return;
+  }
+  // Optimistic: advance now, revert on failure.
+  state.queue.splice(state.index, 1);
+  state.done++;
+  state.history.push({ act, item: o, index: state.index });
+  render();
+  toast(`${LABEL[act]}: ${o.company}`);
+  try {
+    await post({ id: o.id, action: act });
+  } catch (e) {
+    state.queue.splice(state.index, 0, o);
+    state.done--;
+    state.history.pop();
+    render();
+    toast(`Couldn't save (${e.message}). Put it back.`, true);
+  }
+}
+
+async function undo() {
+  const last = state.history.pop();
+  if (!last) return toast("Nothing to undo");
+  if (last.act === "skip") {
+    state.queue.splice(state.queue.indexOf(last.item), 1);
+    state.queue.splice(state.index, 0, last.item);
+    render();
+    return toast("Undid skip");
+  }
+  try {
+    await post({ id: last.item.id, action: "restore", previous: { status: last.item.status, archived: false } });
+    state.queue.splice(state.index, 0, last.item);
+    state.done--;
+    render();
+    toast(`Undid: back to ${last.item.status === "new" ? "New" : "triage"}`);
+  } catch (e) {
+    state.history.push(last);
+    toast(`Undo failed (${e.message})`, true);
+  }
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const desc = $("#desc");
+  const map = { ArrowLeft: "archive", ArrowRight: "new", ArrowUp: "interested", ArrowDown: "skip" };
+  if (map[e.key]) { e.preventDefault(); if (!e.repeat) decide(map[e.key]); return; }
+  const k = e.key.toLowerCase();
+  if (k === "z" || e.key === "Backspace") { e.preventDefault(); undo(); }
+  else if (k === "o") { const o = state.queue[state.index]; if (o?.application_url) window.open(o.application_url, "_blank", "noopener"); }
+  else if (k === "t" && desc) desc.scrollTo({ top: 0, behavior: "smooth" });
+  else if (k === "j" && desc) desc.scrollBy({ top: 160, behavior: "smooth" });
+  else if (k === "k" && desc) desc.scrollBy({ top: -160, behavior: "smooth" });
+});
+
+(async () => {
+  try {
+    const r = await fetch("/api/queue");
+    if (!r.ok) throw new Error((await r.json()).error || r.statusText);
+    state.queue = await r.json();
+    state.total = state.queue.length;
+    render();
+  } catch (e) {
+    $("#app").innerHTML = `<div class="center"><div><h2>Couldn't load the queue</h2>${esc(e.message)}</div></div>`;
+  }
+})();
+</script>
+</body>
+</html>

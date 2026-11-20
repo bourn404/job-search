@@ -1,0 +1,75 @@
+{
+  "kind": "resume",
+  "name": "Carson Fairbourn",
+  "headline": "Sr. Fullstack Engineer | Accessibility Program Owner",
+  "contact": {
+    "email": "you@example.com",
+    "phone": "555-555-5555",
+    "links": ["linkedin.com/in/cfairb"]
+  },
+  "skills": [
+    { "label": "Fullstack", "items": "TypeScript, React, Next.js, Node.js, SQL, Docker, Vitest, Bash, PHP" },
+    { "label": "Accessibility", "items": "WCAG 2.1/2.2, program management, VoiceOver, NVDA, automation" },
+    { "label": "AI", "items": "agentic frameworks, evaluation pipelines, MCP integration, structured output" }
+  ],
+  "experiences": [
+    {
+      "title": "Sr. Fullstack Engineer, Accessibility Program Owner",
+      "company": "SchoolAI",
+      "location": "Lehi, Utah",
+      "dateRanges": ["May 2025 - Present"],
+      "bullets": [
+        "Built across the stack on real-time teacher dashboards surfacing AI insights and safety violations from 17k+ daily student messages.",
+        "Closed 480 WCAG 2.1 issues across 6 teams in Q1 2026 as Accessibility Program Owner, leading auditing, training, tracking, and driving the effort towards our first VPAT.",
+        "Architected Sentinel, an AI-augmented accessibility audit harness combining deterministic tooling with LLM judgment for interpretive WCAG criteria, enabling on-demand audits.",
+        "Produced internal accessibility curriculum, including hands-on training workshops.",
+        "Technical lead for new-user onboarding experiences which increased 7-day activation rates by 7% and had a 2X result on feature adoption."
+      ]
+    },
+    {
+      "title": "Sr. Front-End Engineer, Team Lead",
+      "company": "Lucid Software",
+      "location": "South Jordan, Utah",
+      "dateRanges": ["Nov 2021 - May 2025"],
+      "bullets": [
+        "Developed React frontend for Lucid's integration marketplace, increasing partner integration visibility and resulting in 14 new partner-built integrations and 540,000+ installs in the first year post-launch.",
+        "Leveraged low-level TypeScript compiler APIs to automate GraphQL schema → TypeScript type generation, eliminating a manual process and improving type safety at scale.",
+        "Built modular, performant React + TypeScript components aligned to brand standards via Styled Components, contributing to Lucid's internal design system."
+      ]
+    },
+    {
+      "title": "Web App Engineer, Manager",
+      "company": "Canyons School District",
+      "location": "Sandy, Utah",
+      "dateRanges": ["Jul 2019 - Nov 2021"],
+      "bullets": [
+        "Rebuilt canyonsdistrict.org from scratch, a site serving 5 million sessions per year, while reducing average page load times by 20%.",
+        "Built a centralized news publishing dashboard enabling district personnel to push content across all school-level sites, replacing a fragmented manual workflow.",
+        "Served as technical decision-maker for all web properties across the district, owning architecture, tooling selection, and delivery standards."
+      ]
+    },
+    {
+      "title": "Web Analytics Integration Engineer",
+      "company": "Brigham Young University–Idaho",
+      "location": "Rexburg, Idaho",
+      "dateRanges": ["2019"],
+      "bullets": [
+        "Integrated custom event tracking via Google Tag Manager to analyze user engagement, providing data-backed insights that led to a complete homepage redesign.",
+        "Produced analytics reports and UX improvement recommendations backed by behavioral data, bridging the gap between engineering and product strategy."
+      ]
+    },
+    {
+      "title": "Web App Engineer",
+      "company": "Canyons School District",
+      "location": "Sandy, Utah",
+      "dateRanges": ["2016"],
+      "bullets": []
+    }
+  ],
+  "education": [
+    {
+      "school": "Brigham Young University - Idaho",
+      "degree": "Bachelor of Science, Web Design & Development"
+    }
+  ]
+}

@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spec Editor</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='4' fill='%231f7a4d'/></svg>">
+<style>
+  :root {
+    --bg: #f6f5f2;
+    --panel: #ffffff;
+    --ink: #1c1b19;
+    --ink-2: #57544e;
+    --ink-3: #8a867e;
+    --line: #e4e1da;
+    --accent: #2f5bd3;
+    --warn: #b4432f;
+    --ok: #1f7a4d;
+    --note: #fff6d6;
+    --note-line: #e8d68f;
+    --reply: #eef3ff;
+    --edited: #e9f6ef;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #151514;
+      --panel: #1d1d1b;
+      --ink: #ecebe7;
+      --ink-2: #b3b0a8;
+      --ink-3: #7d7a73;
+      --line: #2e2d2a;
+      --accent: #7c9cf5;
+      --warn: #e0735f;
+      --ok: #4cc38a;
+      --note: #3a3420;
+      --note-line: #6b5d2c;
+      --reply: #1f2638;
+      --edited: #1d3027;
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .app { display: grid; grid-template-columns: minmax(420px, 1fr) minmax(380px, 46%); height: 100vh; }
+
+  /* ── Left: the editable spec ───────────────────────────────────── */
+  .doc { overflow-y: auto; padding: 24px 32px 80px; }
+  .top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .top h1 { margin: 0; font-size: 18px; }
+  .top .file { color: var(--ink-3); font: 12px ui-monospace, Menlo, monospace; }
+  .status { margin: 10px 0 0; padding: 10px 14px; border-radius: 10px; background: var(--panel); border: 1px solid var(--line); color: var(--ink-2); }
+  .status b { color: var(--ink); }
+  .status .summary { margin-top: 6px; white-space: pre-wrap; color: var(--ink); }
+  .banner { margin-top: 10px; padding: 10px 14px; border-radius: 10px; background: var(--reply); display: flex; gap: 12px; align-items: center; }
+
+  section { margin-top: 26px; }
+  h2 { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 700; margin: 0 0 8px; }
+  h3 { font-size: 14px; margin: 18px 0 6px; color: var(--ink-2); font-weight: 600; }
+
+  .line { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; margin: 4px 0; align-items: start; }
+  .line textarea { width: 100%; resize: none; overflow: hidden; font: inherit; color: var(--ink); background: var(--panel);
+    border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; line-height: 1.45; min-height: 34px; }
+  .line textarea:focus { outline: 2px solid color-mix(in srgb, var(--accent) 40%, transparent); border-color: var(--accent); }
+  .line.edited textarea { background: var(--edited); }
+  .line.bullet textarea { padding-left: 22px; background-image: radial-gradient(circle at 11px 17px, var(--ink-3) 2.2px, transparent 2.6px); }
+  .line.bullet.edited textarea { background-color: var(--edited); }
+  .tools { display: flex; gap: 2px; padding-top: 4px; }
+  .tools button { border: 1px solid transparent; background: none; color: var(--ink-3); border-radius: 6px; padding: 2px 6px;
+    font: 600 12px/1.4 inherit; cursor: pointer; }
+  .tools button:hover { color: var(--ink); border-color: var(--line); background: var(--panel); }
+  .tools button.has { color: var(--ink); background: var(--note); border-color: var(--note-line); }
+  .count { grid-column: 1; font-size: 11px; color: var(--ink-3); margin-top: -2px; padding-left: 4px; }
+  .count.long { color: var(--warn); }
+  .note { grid-column: 1; }
+  .note textarea { background: var(--note); border-color: var(--note-line); font-size: 13px; }
+  .reply { grid-column: 1; font-size: 13px; background: var(--reply); border-radius: 8px; padding: 7px 10px; color: var(--ink); }
+  .reply .you { color: var(--ink-2); display: block; margin-bottom: 3px; }
+  .reply .who { font-weight: 700; }
+  .removed { font-size: 12px; color: var(--ink-3); margin: 6px 0; }
+  .removed button { font: inherit; color: var(--accent); background: none; border: 0; cursor: pointer; padding: 0; }
+
+  /* ── Right: send + preview ─────────────────────────────────────── */
+  .side { display: flex; flex-direction: column; gap: 12px; padding: 20px 20px 20px 0; height: 100vh; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); padding: 14px; }
+  .card label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 700; }
+  .card textarea { width: 100%; min-height: 70px; margin-top: 6px; resize: vertical; font: inherit; color: var(--ink);
+    background: var(--note); border: 1px solid var(--note-line); border-radius: 8px; padding: 8px 10px; }
+  .row { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .btn { border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 8px; padding: 7px 12px;
+    font: 600 13px inherit; cursor: pointer; }
+  .btn.primary { background: var(--ok); border-color: var(--ok); color: #fff; }
+  .btn:disabled { opacity: 0.5; cursor: default; }
+  .hint { color: var(--ink-3); font-size: 12px; }
+  .hint kbd { font: 600 11px ui-monospace, Menlo, monospace; border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+  .fill { font-size: 12px; color: var(--ink-2); }
+  .fill.bad { color: var(--warn); }
+  .preview { flex: 1; display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+  .tabs { display: flex; gap: 4px; padding: 8px; border-bottom: 1px solid var(--line); align-items: center; }
+  .tabs button { border: 0; background: none; color: var(--ink-2); font: 600 13px inherit; padding: 5px 10px; border-radius: 6px; cursor: pointer; }
+  .tabs button.on { background: var(--bg); color: var(--ink); }
+  .tabs .grow { flex: 1; }
+  iframe { flex: 1; border: 0; width: 100%; background: #fff; }
+  .empty { flex: 1; display: grid; place-items: center; color: var(--ink-3); }
+
+  .toast { position: fixed; left: 32px; bottom: 20px; background: var(--ink); color: var(--bg); padding: 8px 14px;
+    border-radius: 8px; font-size: 13px; font-weight: 500; opacity: 0; transform: translateY(6px);
+    transition: opacity 0.15s, transform 0.15s; pointer-events: none; }
+  .toast.show { opacity: 1; transform: none; }
+  .toast.error { background: var(--warn); color: #fff; }
+
+  @media (max-width: 900px) {
+    .app { grid-template-columns: 1fr; height: auto; }
+    .side { height: auto; padding: 0 16px 16px; }
+    .preview { height: 80vh; }
+    .doc { padding: 20px 16px 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <main class="doc" id="doc">Loading…</main>
+  <aside class="side">
+    <div class="card">
+      <label for="general">Note on the whole thing</label>
+      <textarea id="general" placeholder="Anything that isn't about one line: angle, tone, what to add or cut…"></textarea>
+      <div class="row">
+        <button class="btn primary" id="save">Save for Claude</button>
+        <span class="hint"><kbd>⌘S</kbd> saves. Then tell Claude "notes are in".</span>
+      </div>
+    </div>
+    <div class="card preview">
+      <div class="tabs">
+        <button data-doc="resume" class="on">Résumé</button>
+        <button data-doc="cover-letter">Cover letter</button>
+        <span class="grow"></span>
+        <span class="fill" id="fill"></span>
+        <button class="btn" id="render">Render preview</button>
+      </div>
+      <div class="empty" id="empty">Render to preview the PDFs (uses your unsaved edits).</div>
+      <iframe id="pdf" hidden title="PDF preview"></iframe>
+    </div>
+  </aside>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const st = { spec: null, labels: [], feedback: null, base: {}, notes: {}, open: new Set(), dirty: false, mtime: 0, doc: "resume", removed: [] };
+
+function toast(msg, error = false) {
+  const t = $("#toast");
+  t.textContent = msg;
+  t.className = "toast show" + (error ? " error" : "");
+  clearTimeout(toast.t);
+  toast.t = setTimeout(() => (t.className = "toast"), 2600);
+}
+const words = (s) => (String(s).trim().match(/\S+/g) || []).length;
+function autosize(el) { el.style.height = "auto"; el.style.height = el.scrollHeight + 2 + "px"; }
+function markDirty() { st.dirty = true; }
+
+async function load() {
+  const r = await fetch("/api/state");
+  const d = await r.json();
+  if (!r.ok) { $("#doc").textContent = d.error; return; }
+  st.spec = d.spec; st.labels = d.labels; st.feedback = d.feedback; st.mtime = d.mtime; st.specName = d.specName;
+  st.base = {};
+  for (const l of lines()) st.base[l.key] = l.text;
+  // Keep Carson's open notes while a round is still waiting on Claude; start fresh once it's addressed.
+  st.notes = {};
+  if (d.feedback.status === "submitted") for (const [k, n] of Object.entries(d.feedback.notes || {})) st.notes[k] = n.note;
+  $("#general").value = d.feedback.status === "submitted" ? d.feedback.general || "" : "";
+  st.dirty = false; st.removed = [];
+  draw();
+}
+
+/** Mirrors flatten() in server.ts; keys must match. */
+function lines() {
+  const s = st.spec, out = [];
+  if (s.headline !== undefined) out.push({ key: "headline", text: s.headline });
+  (s.skills || []).forEach((k, i) => out.push({ key: `skills.${i}`, text: `${k.label}: ${k.items}` }));
+  s.experiences.forEach((e, i) => {
+    out.push({ key: `exp.${i}.title`, text: e.titleOverride ?? "" });
+    e.bullets.forEach((b) => out.push({ key: `bullet.${b.sourceId}`, text: b.text }));
+  });
+  if (s.coverLetter) {
+    out.push({ key: "cover.greeting", text: s.coverLetter.greeting });
+    s.coverLetter.body.forEach((p, i) => out.push({ key: `cover.body.${i}`, text: p }));
+    out.push({ key: "cover.signoff", text: s.coverLetter.signoff });
+  }
+  return out;
+}
+
+function statusHtml() {
+  const f = st.feedback;
+  if (!f || f.round === 0) return `<div class="status">Edit any line, or click <b>Note</b> to ask for a change. Save when you're done.</div>`;
+  if (f.status === "submitted") return `<div class="status"><b>Round ${f.round} saved.</b> Waiting on Claude. You can keep adding notes and save again.</div>`;
+  return `<div class="status"><b>Round ${f.round}: Claude's changes are in.</b> Replies are under the lines you noted.${f.summary ? `<div class="summary">${esc(f.summary)}</div>` : ""}</div>`;
+}
+
+function lineHtml(key, text, opts = {}) {
+  const note = st.notes[key] || "";
+  const prev = st.feedback?.status === "addressed" ? st.feedback.notes?.[key] : null;
+  const edited = key in st.base && st.base[key] !== text;
+  const n = words(text);
+  const tools = [
+    `<button data-act="note" class="${note ? "has" : ""}" title="Leave a note on this line">Note</button>`,
+    ...(opts.bullet ? [`<button data-act="up" title="Move up">↑</button>`, `<button data-act="down" title="Move down">↓</button>`, `<button data-act="remove" title="Remove">✕</button>`] : []),
+  ].join("");
+  return `<div class="line${opts.bullet ? " bullet" : ""}${edited ? " edited" : ""}" data-key="${esc(key)}" ${opts.attrs || ""}>
+    <textarea rows="1" spellcheck="true" data-field>${esc(text)}</textarea>
+    <div class="tools">${tools}</div>
+    ${opts.bullet ? `<div class="count${n > 22 ? " long" : ""}">${n} words</div>` : ""}
+    ${prev?.reply ? `<div class="reply"><span class="you">You: ${esc(prev.note)}</span><span class="who">Claude:</span> ${esc(prev.reply)}</div>` : ""}
+    ${note || st.open.has(key) ? `<div class="note"><textarea rows="1" data-note placeholder="What should change here?">${esc(note)}</textarea></div>` : ""}
+  </div>`;
+}
+
+function draw() {
+  const s = st.spec;
+  let h = `<div class="top"><h1>Spec editor</h1><span class="file">${esc(st.specName)}</span></div>${statusHtml()}<div id="banner"></div>`;
+  // Auto-drafted specs list what Claude assumed instead of asking; check these first.
+  if (Array.isArray(st.spec.autoNotes) && st.spec.autoNotes.length)
+    h += `<div class="banner" style="display:block"><strong>Auto-draft: check these assumptions</strong><ul style="margin:6px 0 0 18px;padding:0">${st.spec.autoNotes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul></div>`;
+  h += `<section><h2>Headline</h2>${lineHtml("headline", s.headline ?? "")}</section>`;
+  h += `<section><h2>Key skills</h2>${(s.skills || []).map((k, i) => lineHtml(`skills.${i}`, `${k.label}: ${k.items}`)).join("")}</section>`;
+  h += `<section><h2>Experience</h2>`;
+  s.experiences.forEach((e, i) => {
+    h += `<h3>${esc(st.labels[i] || `Experience ${i + 1}`)}</h3>`;
+    h += lineHtml(`exp.${i}.title`, e.titleOverride ?? "");
+    e.bullets.forEach((b, j) => (h += lineHtml(`bullet.${b.sourceId}`, b.text, { bullet: true, attrs: `data-exp="${i}" data-idx="${j}"` })));
+    const gone = st.removed.filter((r) => r.exp === i);
+    if (gone.length) h += `<div class="removed">Removed ${gone.length} bullet${gone.length > 1 ? "s" : ""}. <button data-restore="${i}">Restore last</button></div>`;
+  });
+  h += `</section>`;
+  if (s.coverLetter) {
+    const cl = s.coverLetter;
+    const total = cl.body.reduce((n, p) => n + words(p), 0);
+    h += `<section><h2>Cover letter · ${total} words</h2>${lineHtml("cover.greeting", cl.greeting)}${cl.body.map((p, i) => lineHtml(`cover.body.${i}`, p)).join("")}${lineHtml("cover.signoff", cl.signoff)}</section>`;
+  }
+  $("#doc").innerHTML = h;
+  document.querySelectorAll("#doc textarea").forEach(autosize);
+}
+
+/** Write one line's text back into the spec. */
+function setText(key, v) {
+  const s = st.spec;
+  if (key === "headline") s.headline = v;
+  else if (key.startsWith("skills.")) {
+    const i = Number(key.split(".")[1]), c = v.indexOf(":");
+    s.skills[i] = c < 0 ? { label: s.skills[i].label, items: v.trim() } : { label: v.slice(0, c).trim(), items: v.slice(c + 1).trim() };
+  } else if (/^exp\.\d+\.title$/.test(key)) {
+    const e = s.experiences[Number(key.split(".")[1])];
+    if (v.trim()) e.titleOverride = v; else delete e.titleOverride;
+  } else if (key.startsWith("bullet.")) {
+    const id = key.slice(7);
+    for (const e of s.experiences) for (const b of e.bullets) if (b.sourceId === id) b.text = v;
+  } else if (key === "cover.greeting") s.coverLetter.greeting = v;
+  else if (key === "cover.signoff") s.coverLetter.signoff = v;
+  else if (key.startsWith("cover.body.")) s.coverLetter.body[Number(key.split(".")[2])] = v;
+}
+
+$("#doc").addEventListener("input", (ev) => {
+  const t = ev.target, line = t.closest(".line");
+  if (!line) return;
+  autosize(t);
+  markDirty();
+  const key = line.dataset.key;
+  if (t.hasAttribute("data-note")) { st.notes[key] = t.value; line.querySelector('[data-act="note"]').classList.toggle("has", !!t.value.trim()); return; }
+  setText(key, t.value);
+  line.classList.toggle("edited", key in st.base && st.base[key] !== t.value);
+  const c = line.querySelector(".count");
+  if (c) { const n = words(t.value); c.textContent = `${n} words`; c.classList.toggle("long", n > 22); }
+});
+
+$("#doc").addEventListener("click", (ev) => {
+  const restore = ev.target.closest("[data-restore]");
+  if (restore) {
+    const i = Number(restore.dataset.restore);
+    const k = st.removed.map((r) => r.exp).lastIndexOf(i);
+    const [r] = st.removed.splice(k, 1);
+    st.spec.experiences[i].bullets.splice(r.idx, 0, r.bullet);
+    markDirty(); draw(); return;
+  }
+  const btn = ev.target.closest("[data-act]");
+  if (!btn) return;
+  const line = btn.closest(".line"), key = line.dataset.key, act = btn.dataset.act;
+  if (act === "note") {
+    if (st.open.has(key) && !st.notes[key]) st.open.delete(key); else st.open.add(key);
+    draw();
+    document.querySelector(`.line[data-key="${CSS.escape(key)}"] [data-note]`)?.focus();
+    return;
+  }
+  const i = Number(line.dataset.exp), j = Number(line.dataset.idx), list = st.spec.experiences[i].bullets;
+  if (act === "up" && j > 0) [list[j - 1], list[j]] = [list[j], list[j - 1]];
+  else if (act === "down" && j < list.length - 1) [list[j + 1], list[j]] = [list[j], list[j + 1]];
+  else if (act === "remove") { st.removed.push({ exp: i, idx: j, bullet: list.splice(j, 1)[0] }); delete st.notes[key]; }
+  else return;
+  markDirty(); draw();
+});
+
+async function save() {
+  const btn = $("#save");
+  btn.disabled = true;
+  try {
+    const r = await fetch("/api/save", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ spec: st.spec, general: $("#general").value, notes: st.notes, baseMtime: st.mtime }) });
+    const d = await r.json();
+    if (r.status === 409) {
+      $("#banner").innerHTML = `<div class="banner">${d.error} Copy anything you need, then <button class="btn" onclick="load()">Load Claude's version</button> and reapply.</div>`;
+      throw new Error(d.error);
+    }
+    if (!r.ok) throw new Error(d.error);
+    st.mtime = d.mtime;
+    toast(`Saved round ${d.round}: ${d.notes} note${d.notes === 1 ? "" : "s"}, ${d.edits} edit${d.edits === 1 ? "" : "s"}.${d.warnings.length ? " ⚠ " + d.warnings.join("; ") : ""}`, d.warnings.length > 0);
+    await load();
+  } catch (e) { toast(e.message, true); }
+  btn.disabled = false;
+}
+$("#save").addEventListener("click", save);
+$("#general").addEventListener("input", markDirty);
+addEventListener("keydown", (e) => { if ((e.metaKey || e.ctrlKey) && e.key === "s") { e.preventDefault(); save(); } });
+addEventListener("beforeunload", (e) => { if (st.dirty) e.preventDefault(); });
+
+function showPdf() {
+  document.querySelectorAll(".tabs [data-doc]").forEach((b) => b.classList.toggle("on", b.dataset.doc === st.doc));
+  if (!st.rendered) return;
+  $("#empty").hidden = true;
+  const f = $("#pdf");
+  f.hidden = false;
+  f.src = `/out/${st.doc}.pdf?t=${st.rendered}#view=FitH&toolbar=0`;
+}
+document.querySelectorAll(".tabs [data-doc]").forEach((b) => b.addEventListener("click", () => { st.doc = b.dataset.doc; showPdf(); }));
+$("#render").addEventListener("click", async () => {
+  const btn = $("#render");
+  btn.disabled = true; btn.textContent = "Rendering…";
+  try {
+    const r = await fetch("/api/render", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ spec: st.spec }) });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error);
+    $("#fill").textContent = d.fill ? `Résumé: ${d.fill.replace(/ — .*/, "").replace(/ in below content/, "in spare")}` : "";
+    $("#fill").classList.toggle("bad", /⚠|tight/.test(d.fill || ""));
+    $("#fill").title = d.fill || "";
+    st.rendered = Date.now();
+    showPdf();
+  } catch (e) { toast(e.message, true); }
+  btn.disabled = false; btn.textContent = "Render preview";
+});
+
+// Pick up Claude's next version: reload quietly if nothing's unsaved, else offer to.
+setInterval(async () => {
+  try {
+    const { mtime } = await (await fetch("/api/mtime")).json();
+    if (mtime <= st.mtime) return;
+    if (!st.dirty) { await load(); toast("Claude's new version is loaded."); }
+    else $("#banner").innerHTML = `<div class="banner">Claude saved a new version. <button class="btn" onclick="load()">Load it (discards unsaved edits)</button></div>`;
+  } catch {}
+}, 2000);
+
+load();
+</script>
+</body>
+</html>

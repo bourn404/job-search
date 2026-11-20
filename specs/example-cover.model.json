@@ -1,0 +1,23 @@
+{
+  "kind": "cover-letter",
+  "name": "Carson Fairbourn",
+  "headline": "Sr. Fullstack Engineer | Accessibility Program Owner",
+  "contact": {
+    "email": "you@example.com",
+    "phone": "555-555-5555",
+    "links": ["linkedin.com/in/cfairb"]
+  },
+  "skills": [],
+  "experiences": [],
+  "education": [],
+  "coverLetter": {
+    "greeting": "Dear Hiring Team,",
+    "body": [
+      "Doing work that matters has been the north star of my career, and it's led me repeatedly toward opportunities connected to education and accessibility.",
+      "The UI Platform team at Anthropic seems to be asking the same question I've dedicated myself to over the last few years: How do we architect systems so accessibility comes by default, not an afterthought?",
+      "What I bring is a track record of building accessibility infrastructure that scales beyond me. The audit tooling and design system patterns I've built at SchoolAI are embedded into the development cycle and used across our engineering org. The training curriculum I've created is our onboarding standard. The UI Platform role at Anthropic applies this same class of work across a much larger surface area of impact.",
+      "Anthropic's products have changed what I'm able to do. The scope I've covered this year as a single program lead at a small company is, in no small part, because Claude has enabled me to operate at a scale one person historically couldn't. I want to help unlock the leverage I've felt as a user for your customers who depend on assistive technology."
+    ],
+    "signoff": "Thank you for your time & consideration,"
+  }
+}

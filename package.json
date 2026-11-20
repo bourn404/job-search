@@ -1,0 +1,22 @@
+{
+  "name": "job-search",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "cli": "tsx src/cli.ts",
+    "render": "tsx src/cli.ts render",
+    "discover": "tsx src/cli.ts discover",
+    "triage": "tsx src/cli.ts review --port 4330",
+    "cleanup": "tsx src/cli.ts cleanup",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
