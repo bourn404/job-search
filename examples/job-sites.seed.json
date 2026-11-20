@@ -1,0 +1,1942 @@
+{
+  "_comment": "Carson's discovery watchlist: real company job boards with working adapter configs. Import with `npx tsx src/cli.ts db import --json examples/job-sites.seed.json`, then delete or disable (scrape_enabled: false) the ones you don't want. Re-importing updates rows by name. Disabled rows say why in notes (no API, bot walls, or poor fit for a frontend search). Provider configs are documented in CLAUDE.md.",
+  "job_sites": [
+    {
+      "name": "1-800 Contacts",
+      "url": "https://job-boards.greenhouse.io/1800contacts",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "1800contacts"
+      }
+    },
+    {
+      "name": "1Password",
+      "url": "https://jobs.ashbyhq.com/1password",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "1password"
+      }
+    },
+    {
+      "name": "a11y Jobs",
+      "url": "https://www.a11yjobs.com",
+      "provider": "a11yjobs",
+      "provider_config": {
+        "keywords": [
+          "accessibility",
+          "a11y",
+          "frontend",
+          "front-end",
+          "front end",
+          "ui engineer",
+          "ux engineer",
+          "design system",
+          "web developer",
+          "web engineer"
+        ]
+      },
+      "scrape_enabled": false,
+      "notes": "Disabled 2026-10-01 after the first full run: aggregator surfaced universities, government, and staffing firms; all archived."
+    },
+    {
+      "name": "Adobe",
+      "url": "https://www.adobe.com/careers/search.html#q=design+systems&t=0",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "adobe",
+        "dc": "wd5",
+        "site": "external_experienced",
+        "appliedFacets": {
+          "jobFamilyGroup": [
+            "591af8b812fa10737af39db3d96eed9f"
+          ]
+        },
+        "maxResults": 700,
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Affirm",
+      "url": "https://job-boards.greenhouse.io/affirm",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "affirm"
+      }
+    },
+    {
+      "name": "Airbnb",
+      "url": "https://careers.airbnb.com/positions/",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "airbnb"
+      }
+    },
+    {
+      "name": "Airtable",
+      "url": "https://boards.greenhouse.io/airtable",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "airtable"
+      }
+    },
+    {
+      "name": "Amazon",
+      "url": "https://www.amazon.jobs/en/search?category[]=software-development&normalized_country_code[]=USA",
+      "provider": "Amazon",
+      "provider_config": {
+        "categories": [
+          "software-development"
+        ],
+        "countries": [
+          "USA"
+        ]
+      }
+    },
+    {
+      "name": "Ancestry",
+      "url": "https://ancestry.wd501.myworkdayjobs.com/Careers",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "ancestry",
+        "dc": "wd501",
+        "site": "Careers",
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "notes": "Lehi, UT; consumer product at scale, design systems relevant"
+    },
+    {
+      "name": "Anthropic",
+      "url": "https://job-boards.greenhouse.io/anthropic",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "anthropic"
+      }
+    },
+    {
+      "name": "Apple",
+      "url": "https://jobs.apple.com/en-us/search?search=design+systems&sort=Latest",
+      "provider": "Apple",
+      "provider_config": {
+        "locations": [
+          "postLocation-USA"
+        ],
+        "teams": [
+          "teamsAndSubTeams-SFTWR",
+          "teamsAndSubTeams-MLAI",
+          "teamsAndSubTeams-DESGN"
+        ]
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "Asana",
+      "url": "https://asana.com/jobs/all-jobs?search=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "asana"
+      }
+    },
+    {
+      "name": "Ashby",
+      "url": "https://jobs.ashbyhq.com/Ashby",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "Ashby"
+      }
+    },
+    {
+      "name": "Atlassian",
+      "url": "https://www.atlassian.com/company/careers/all-jobs",
+      "provider": "Atlassian",
+      "provider_config": {
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Autodesk",
+      "url": "https://autodesk.wd1.myworkdayjobs.com/Ext",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "autodesk",
+        "dc": "wd1",
+        "site": "Ext",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Baseten",
+      "url": "https://jobs.ashbyhq.com/baseten",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "baseten"
+      }
+    },
+    {
+      "name": "Beacon Biosignals",
+      "url": "https://job-boards.greenhouse.io/beaconbiosignals",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "beaconbiosignals"
+      }
+    },
+    {
+      "name": "Beast Industries (MrBeast)",
+      "url": "https://job-boards.greenhouse.io/mrbeastyoutube",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "mrbeastyoutube"
+      }
+    },
+    {
+      "name": "Best Buy",
+      "url": "https://jobs.bestbuy.com/bby/jobs?q=design+systems",
+      "provider": "Custom",
+      "scrape_enabled": false,
+      "notes": "Not scannable (checked 2026-10-01): jobs.bestbuy.com is a legacy client-rendered site with no JSON API. Add individual roles with /interested."
+    },
+    {
+      "name": "BILL (fka Divvy)",
+      "url": "https://www.bill.com/about/careers#open-roles?search=frontend",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "billcom"
+      },
+      "notes": "SLC area; acquired Divvy, has Utah engineering presence"
+    },
+    {
+      "name": "Booking.com",
+      "url": "https://jobs.booking.com/careers-home/jobs",
+      "provider": "iCIMS",
+      "provider_config": {
+        "host": "jobs.booking.com",
+        "searchText": [
+          "frontend",
+          "front end",
+          "front-end",
+          "full stack",
+          "fullstack",
+          "web developer",
+          "web engineer",
+          "ui engineer",
+          "software engineer",
+          "design system",
+          "accessibility"
+        ],
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "Box",
+      "url": "https://jobs.lever.co/box?search=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "boxinc"
+      }
+    },
+    {
+      "name": "Breeze Airways",
+      "url": "https://flybreeze.wd503.myworkdayjobs.com/Breeze_Airways",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "flybreeze",
+        "dc": "wd503",
+        "site": "Breeze_Airways",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Brilliant",
+      "url": "https://jobs.lever.co/brilliant",
+      "provider": "Lever",
+      "provider_config": {
+        "site": "brilliant"
+      }
+    },
+    {
+      "name": "Calendly",
+      "url": "https://job-boards.greenhouse.io/calendly",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "calendly"
+      }
+    },
+    {
+      "name": "Canva",
+      "url": "https://jobs.smartrecruiters.com/Canva",
+      "provider": "SmartRecruiters",
+      "provider_config": {
+        "company": "Canva",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Capital One",
+      "url": "https://capitalone.wd12.myworkdayjobs.com/Capital_One",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "capitalone",
+        "dc": "wd12",
+        "site": "Capital_One",
+        "searchText": [
+          "front end",
+          "frontend",
+          "full stack",
+          "design system",
+          "accessibility",
+          "react",
+          "ui engineer"
+        ],
+        "countries": [
+          "United States of America"
+        ],
+        "maxResults": 400
+      }
+    },
+    {
+      "name": "Carnival",
+      "url": "https://jobs.carnival.com",
+      "provider": "Sitemap",
+      "provider_config": {
+        "sitemap": "https://jobs.carnival.com/sitemap.xml",
+        "jobPattern": "^/job/",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Carvana",
+      "url": "https://www.carvana.com/careers",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "carvana"
+      }
+    },
+    {
+      "name": "Cerebras",
+      "url": "https://jobs.ashbyhq.com/cerebras",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "cerebras"
+      }
+    },
+    {
+      "name": "Chegg",
+      "url": "https://osv-chegg.wd5.myworkdayjobs.com/Chegg",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "osv-chegg",
+        "dc": "wd5",
+        "site": "Chegg",
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "scrape_enabled": false,
+      "notes": "Disabled 2026-10-01: osv-chegg.wd5 board page loads but every CXS jobs request returns 422 (any site/dc). Retry later with discover --site Chegg."
+    },
+    {
+      "name": "Chromatic",
+      "url": "https://jobs.ashbyhq.com/chromatic",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "chromatic"
+      }
+    },
+    {
+      "name": "ClassDojo",
+      "url": "https://jobs.ashbyhq.com/classdojo",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "classdojo"
+      }
+    },
+    {
+      "name": "Clever",
+      "url": "https://job-boards.greenhouse.io/clever",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "clever"
+      }
+    },
+    {
+      "name": "ClickUp",
+      "url": "https://jobs.ashbyhq.com/clickup",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "clickup"
+      }
+    },
+    {
+      "name": "Cloudflare",
+      "url": "https://www.cloudflare.com/careers/jobs/?department=Engineering&search=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "cloudflare"
+      }
+    },
+    {
+      "name": "Cohere",
+      "url": "https://jobs.ashbyhq.com/cohere",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "cohere"
+      }
+    },
+    {
+      "name": "Comcast / NBCUniversal",
+      "url": "https://comcast.wd115.myworkdayjobs.com/Comcast_Careers",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "comcast",
+        "dc": "wd115",
+        "site": "Comcast_Careers",
+        "appliedFacets": {
+          "jobFamilyGroup": [
+            "285386867dd9010665c0d2c57d0b4c15"
+          ]
+        },
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "title_filter": "strict",
+      "notes": "Large media + tech org; Peacock, Xfinity have real frontend investment"
+    },
+    {
+      "name": "Counterpart Health (Clover Health)",
+      "url": "https://job-boards.greenhouse.io/cloverhealth",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "cloverhealth"
+      }
+    },
+    {
+      "name": "Coursera",
+      "url": "https://job-boards.greenhouse.io/coursera",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "coursera"
+      }
+    },
+    {
+      "name": "Cricut",
+      "url": "https://jobs.smartrecruiters.com/Cricut",
+      "provider": "SmartRecruiters",
+      "provider_config": {
+        "company": "Cricut",
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "notes": "South Jordan, UT; consumer hardware + software, strong design surface area"
+    },
+    {
+      "name": "Cursor",
+      "url": "https://jobs.ashbyhq.com/cursor",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "cursor"
+      }
+    },
+    {
+      "name": "CVS Health",
+      "url": "https://cvshealth.wd1.myworkdayjobs.com/CVS_Health_Careers",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "cvshealth",
+        "dc": "wd1",
+        "site": "CVS_Health_Careers",
+        "appliedFacets": {
+          "jobFamilyGroup": [
+            "e65dbadf6a50100168ed86fe4cf50001"
+          ]
+        },
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Datadog",
+      "url": "https://careers.datadoghq.com/all-jobs/?search=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "datadog"
+      }
+    },
+    {
+      "name": "Design Systems Jobs",
+      "url": "https://designsystemsjobs.com",
+      "provider": "Custom",
+      "scrape_enabled": false,
+      "notes": "Not scannable (checked 2026-10-01): designsystemsjobs.com doesn't respond. Add individual roles with /interested."
+    },
+    {
+      "name": "Discord",
+      "url": "https://boards.greenhouse.io/discord",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "discord"
+      }
+    },
+    {
+      "name": "Disney / Hulu",
+      "url": "https://jobs.disneycareers.com/search-jobs?k=design+systems",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "disney",
+        "dc": "wd5",
+        "site": "disneycareer",
+        "appliedFacets": {
+          "jobFamilyGroup": [
+            "4f84d9e8a097010115f104197eec0000"
+          ]
+        },
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Domo",
+      "url": "https://www.domo.com/company/careers#open-positions?search=design+systems",
+      "provider": "Greenhouse",
+      "scrape_enabled": false,
+      "notes": "domo.com/company/careers now redirects to progress.com/company/careers (acquired by Progress?); disabled 2026-10-01."
+    },
+    {
+      "name": "DoorDash",
+      "url": "https://job-boards.greenhouse.io/doordashusa",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "doordashusa"
+      }
+    },
+    {
+      "name": "Dropbox",
+      "url": "https://jobs.dropbox.com/all-jobs?search=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "dropbox"
+      }
+    },
+    {
+      "name": "DuckDuckGo",
+      "url": "https://jobs.ashbyhq.com/duck-duck-go",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "duck-duck-go"
+      }
+    },
+    {
+      "name": "Duolingo",
+      "url": "https://careers.duolingo.com/jobs?search=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "duolingo"
+      }
+    },
+    {
+      "name": "eBay",
+      "url": "https://ebay.wd5.myworkdayjobs.com/apply",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "ebay",
+        "dc": "wd5",
+        "site": "apply",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Elastic",
+      "url": "https://www.elastic.co/about/careers#q=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "elastic"
+      }
+    },
+    {
+      "name": "Electronic Arts",
+      "url": "https://www.ea.com/careers/search#q=design+systems",
+      "provider": "Custom",
+      "scrape_enabled": false,
+      "notes": "Not scannable (checked 2026-10-01): jobs.ea.com is a bespoke site with no public JSON API. Add individual roles with /interested."
+    },
+    {
+      "name": "ElevenLabs",
+      "url": "https://jobs.ashbyhq.com/elevenlabs",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "elevenlabs"
+      }
+    },
+    {
+      "name": "Epic Games",
+      "url": "https://www.epicgames.com/site/en-US/careers/jobs?search=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "epicgames"
+      }
+    },
+    {
+      "name": "Etsy",
+      "url": "https://careers.etsy.com",
+      "provider": "Sitemap",
+      "provider_config": {
+        "sitemap": "https://careers.etsy.com/sitemap.xml",
+        "jobPattern": "^/jobs/",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "EvenUp",
+      "url": "https://jobs.ashbyhq.com/evenup",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "evenup"
+      }
+    },
+    {
+      "name": "Expedia",
+      "url": "https://careers.expedia.com/jobs?search=design+systems",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "expedia",
+        "dc": "wd108",
+        "site": "search",
+        "appliedFacets": {
+          "jobFamilyGroup": [
+            "c553432013ba103b60decedc3beb2900"
+          ]
+        },
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Figma",
+      "url": "https://job-boards.greenhouse.io/figma",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "figma"
+      }
+    },
+    {
+      "name": "Ford",
+      "url": "https://careers.ford.com/jobsearch?q=design+systems",
+      "provider": "Oracle Cloud HCM",
+      "provider_config": {
+        "host": "efds.fa.em5.oraclecloud.com",
+        "siteNumber": "CX_1",
+        "searchText": [
+          "frontend",
+          "front end",
+          "front-end",
+          "full stack",
+          "fullstack",
+          "ui engineer",
+          "web",
+          "design system",
+          "accessibility",
+          "javascript",
+          "react"
+        ],
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "scrape_enabled": false,
+      "notes": "Disabled 2026-10-01 after the first full run: software roles are automotive/hardware (engine controls, chassis, OTA); 8 of 9 archived."
+    },
+    {
+      "name": "Gamma",
+      "url": "https://jobs.ashbyhq.com/gamma",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "gamma"
+      }
+    },
+    {
+      "name": "GDIT (General Dynamics)",
+      "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "gdit",
+        "dc": "wd5",
+        "site": "External_Career_Site",
+        "searchText": [
+          "frontend",
+          "front end",
+          "front-end",
+          "full stack",
+          "fullstack",
+          "web developer",
+          "ui engineer",
+          "ux engineer",
+          "design system",
+          "accessibility",
+          "508",
+          "react"
+        ],
+        "maxResults": 400
+      },
+      "scrape_enabled": false,
+      "notes": "Disabled: nearly all roles need an active TS/SCI clearance and on-site work at government sites."
+    },
+    {
+      "name": "General Motors",
+      "url": "https://careers.gm.com/en/jobs/#q=design+systems",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "generalmotors",
+        "dc": "wd5",
+        "site": "Careers_GM",
+        "appliedFacets": {
+          "jobFamilyGroup": [
+            "5ce64061bbf21001e72608a46d250000",
+            "81219c912085017addb4bb999c1b19d6"
+          ],
+          "Location_Country": [
+            "bc33aa3152ec42d4995f4791a106ed09"
+          ]
+        }
+      },
+      "notes": "OnStar, Ultifi platform — growing software org"
+    },
+    {
+      "name": "GitHub",
+      "url": "https://www.github.careers/careers-home/jobs",
+      "provider": "iCIMS",
+      "provider_config": {
+        "host": "www.github.careers",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "GitLab",
+      "url": "https://job-boards.greenhouse.io/gitlab",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "gitlab"
+      }
+    },
+    {
+      "name": "Google",
+      "url": "https://www.google.com/about/careers/applications/jobs/results?location=United%20States",
+      "provider": "Google",
+      "provider_config": {
+        "location": "United States",
+        "searchText": [
+          "frontend",
+          "front end",
+          "full stack",
+          "user experience engineer",
+          "ux engineer",
+          "design systems",
+          "accessibility"
+        ]
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "Gusto",
+      "url": "https://job-boards.greenhouse.io/gusto",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "gusto"
+      }
+    },
+    {
+      "name": "Harvey",
+      "url": "https://jobs.ashbyhq.com/harvey",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "harvey"
+      }
+    },
+    {
+      "name": "HeyGen",
+      "url": "https://job-boards.greenhouse.io/heygen",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "heygen"
+      }
+    },
+    {
+      "name": "Hilton",
+      "url": "https://jobs.hilton.com/us/en",
+      "provider": "Oracle Cloud HCM",
+      "provider_config": {
+        "host": "efet.fa.us2.oraclecloud.com",
+        "siteNumber": "CX_1",
+        "searchText": [
+          "frontend",
+          "front end",
+          "front-end",
+          "full stack",
+          "fullstack",
+          "web developer",
+          "web engineer",
+          "ui engineer",
+          "software engineer",
+          "design system",
+          "accessibility"
+        ],
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "Hopper",
+      "url": "https://jobs.ashbyhq.com/hopper",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "hopper"
+      }
+    },
+    {
+      "name": "HubSpot",
+      "url": "https://job-boards.greenhouse.io/hubspotjobs",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "hubspotjobs"
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "Hugging Face",
+      "url": "https://apply.workable.com/huggingface/",
+      "provider": "Workable",
+      "provider_config": {
+        "account": "huggingface"
+      }
+    },
+    {
+      "name": "IBM",
+      "url": "https://www.ibm.com/employment/#jobs?q=design+systems",
+      "provider": "Custom",
+      "scrape_enabled": false,
+      "notes": "Not scannable (checked 2026-10-01): IBM's careers search is a bespoke app; low fit, not worth an adapter. Add individual roles with /interested."
+    },
+    {
+      "name": "Included Health",
+      "url": "https://jobs.lever.co/includedhealth",
+      "provider": "Lever",
+      "provider_config": {
+        "site": "includedhealth"
+      }
+    },
+    {
+      "name": "Instacart",
+      "url": "https://instacart.careers/jobs/?search=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "instacart"
+      }
+    },
+    {
+      "name": "Instructure (Canvas)",
+      "url": "https://jobs.ashbyhq.com/instructure",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "instructure"
+      },
+      "notes": "SLC; edtech platform, accessibility is a genuine priority in edtech"
+    },
+    {
+      "name": "Intel",
+      "url": "https://jobs.intel.com/en/search-jobs/design+systems/United-States/1615",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "intel",
+        "dc": "wd1",
+        "site": "External",
+        "appliedFacets": {
+          "jobFamilyGroup": [
+            "ace7a3d23b7e01a0544279031a0ec85c"
+          ]
+        },
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Intercom",
+      "url": "https://www.intercom.com/careers#jobs?search=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "intercom"
+      }
+    },
+    {
+      "name": "Intuit",
+      "url": "https://jobs.intuit.com",
+      "provider": "Sitemap",
+      "provider_config": {
+        "sitemap": "https://jobs.intuit.com/sitemap.xml",
+        "jobPattern": "^/job/",
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "Kayak",
+      "url": "https://jobs.ashbyhq.com/kayak",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "kayak"
+      }
+    },
+    {
+      "name": "Khan Academy",
+      "url": "https://job-boards.greenhouse.io/khanacademy",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "khanacademy"
+      }
+    },
+    {
+      "name": "LangChain",
+      "url": "https://jobs.ashbyhq.com/langchain",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "langchain"
+      }
+    },
+    {
+      "name": "Leland",
+      "url": "https://jobs.ashbyhq.com/leland",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "leland"
+      }
+    },
+    {
+      "name": "Linear",
+      "url": "https://linear.app/careers",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "linear"
+      }
+    },
+    {
+      "name": "LinkedIn",
+      "url": "https://careers.linkedin.com/jobs#q=design+systems",
+      "provider": "Custom (Microsoft)",
+      "scrape_enabled": false,
+      "notes": "Not scannable (checked 2026-10-01): LinkedIn's own roles are only listed on linkedin.com (login wall). Add individual roles with /interested."
+    },
+    {
+      "name": "LinkedIn Jobs",
+      "url": "https://www.linkedin.com/jobs/search/?keywords=staff+design+engineer+OR+staff+frontend+engineer+design+systems&f_WT=2",
+      "provider": "LinkedIn",
+      "scrape_enabled": false,
+      "notes": "Not scannable (checked 2026-10-01): linkedin.com job search requires login and blocks scraping. Add individual roles with /interested."
+    },
+    {
+      "name": "Lowe's",
+      "url": "https://jobs.lowes.com/search-jobs?k=design+systems",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "lowes",
+        "dc": "wd5",
+        "site": "LWS_External_CS",
+        "appliedFacets": {
+          "jobFamilyGroup": [
+            "02b0c958653f01dc63f0e6fafb055345",
+            "02b0c958653f01d9810ce8fafb055745"
+          ]
+        },
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Lucid Software",
+      "url": "https://job-boards.greenhouse.io/lucidsoftware",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "lucidsoftware"
+      }
+    },
+    {
+      "name": "Lyft",
+      "url": "https://www.lyft.com/careers/all-jobs?search=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "lyft"
+      }
+    },
+    {
+      "name": "MagicSchool",
+      "url": "https://jobs.ashbyhq.com/magicschool",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "magicschool"
+      }
+    },
+    {
+      "name": "Marriott",
+      "url": "https://careers.marriott.com/",
+      "provider": "Oracle Cloud HCM",
+      "provider_config": {
+        "host": "ejwl.fa.us2.oraclecloud.com",
+        "siteNumber": "CX",
+        "searchText": [
+          "frontend",
+          "front end",
+          "front-end",
+          "full stack",
+          "fullstack",
+          "web developer",
+          "web engineer",
+          "ui engineer",
+          "software engineer",
+          "design system",
+          "accessibility"
+        ],
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "Mastercard",
+      "url": "https://careers.mastercard.com/us/en/search-results?keywords=design+systems",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "mastercard",
+        "dc": "wd1",
+        "site": "CorporateCareers",
+        "appliedFacets": {
+          "jobFamilyGroup": [
+            "189119ebe266100103737c3d6a6e0000",
+            "866c0ed135ff106f00587685e7483440",
+            "6e89917196f001d33571f584ef4b6e21"
+          ]
+        },
+        "searchText": [
+          "frontend",
+          "front end",
+          "design system",
+          "design engineer",
+          "ui engineer",
+          "full stack",
+          "accessibility",
+          "web developer"
+        ],
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "McDonald's",
+      "url": "https://jobs.mcdonalds.com",
+      "provider": "Sitemap",
+      "provider_config": {
+        "sitemap": "https://jobs.mcdonalds.com/sitemap.xml",
+        "jobPattern": "^/job/[^/]*-[A-Z]{2}-[0-9]{5}/",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Meta",
+      "url": "https://www.metacareers.com/jobs?q=design+systems&teams[0]=Frontend+Engineering",
+      "provider": "Custom",
+      "scrape_enabled": false,
+      "notes": "Not scannable (checked 2026-10-01): metacareers.com is a client-rendered app behind bot protection. Add individual roles with /interested."
+    },
+    {
+      "name": "Metabase",
+      "url": "https://jobs.lever.co/metabase",
+      "provider": "Lever",
+      "provider_config": {
+        "site": "metabase"
+      }
+    },
+    {
+      "name": "Microsoft",
+      "url": "https://apply.careers.microsoft.com/careers",
+      "provider": "Eightfold",
+      "provider_config": {
+        "host": "apply.careers.microsoft.com",
+        "domain": "microsoft.com",
+        "location": "United States",
+        "searchText": [
+          "frontend",
+          "front end",
+          "full stack",
+          "fullstack",
+          "design system",
+          "accessibility",
+          "ux engineer",
+          "ui engineer",
+          "web developer"
+        ],
+        "maxResults": 1000,
+        "delayMs": 1500
+      },
+      "scrape_enabled": false,
+      "notes": "Disabled 2026-10-01: Microsoft's WAF rate-limits Eightfold searches too aggressively (slow, partial scans). Re-enable with discover --site Microsoft if needed; add roles via /interested."
+    },
+    {
+      "name": "Midjourney",
+      "url": "https://jobs.ashbyhq.com/midjourney",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "midjourney"
+      }
+    },
+    {
+      "name": "Mixpanel",
+      "url": "https://job-boards.greenhouse.io/mixpanel",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "mixpanel"
+      }
+    },
+    {
+      "name": "Mozilla",
+      "url": "https://job-boards.greenhouse.io/mozilla",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "mozilla"
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "MX Technologies",
+      "url": "https://job-boards.greenhouse.io/mxtechnologiesinc",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "mxtechnologiesinc"
+      },
+      "notes": "Lehi, UT; fintech data platform with SLC-area roots"
+    },
+    {
+      "name": "Netflix",
+      "url": "https://explore.jobs.netflix.net/careers",
+      "provider": "Eightfold",
+      "provider_config": {
+        "host": "explore.jobs.netflix.net",
+        "domain": "netflix.com",
+        "searchText": [
+          "engineer"
+        ]
+      }
+    },
+    {
+      "name": "Newsela",
+      "url": "https://job-boards.greenhouse.io/newsela",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "newsela"
+      }
+    },
+    {
+      "name": "Nike",
+      "url": "https://jobs.nike.com/search?q=design+systems",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "nike",
+        "dc": "wd1",
+        "site": "nke",
+        "appliedFacets": {
+          "jobFamilyGroup": [
+            "cd128a2666561000bad388d2f6030000",
+            "cd128a2666561000bad388d2f6030002"
+          ]
+        },
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "notes": "Very strong design culture; design systems work is high-craft"
+    },
+    {
+      "name": "Nintendo",
+      "url": "https://job-boards.greenhouse.io/nintendo",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "nintendo"
+      }
+    },
+    {
+      "name": "Northrop Grumman",
+      "url": "https://ngc.eightfold.ai/careers",
+      "provider": "Eightfold",
+      "provider_config": {
+        "host": "ngc.eightfold.ai",
+        "domain": "ngc.com",
+        "location": "United States",
+        "searchText": [
+          "frontend",
+          "front end",
+          "full stack",
+          "web developer",
+          "ui engineer",
+          "react"
+        ]
+      },
+      "title_filter": "strict",
+      "scrape_enabled": false,
+      "notes": "Disabled: nearly all roles need an active TS/SCI clearance and on-site work at government sites."
+    },
+    {
+      "name": "Notion",
+      "url": "https://jobs.ashbyhq.com/notion",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "notion"
+      }
+    },
+    {
+      "name": "NVIDIA",
+      "url": "https://www.nvidia.com/en-us/about-nvidia/careers/job-listings/?search=design+systems",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "nvidia",
+        "dc": "wd5",
+        "site": "NVIDIAExternalCareerSite",
+        "appliedFacets": {
+          "jobFamilyGroup": [
+            "0c40f6bd1d8f10ae43ffaefd46dc7e78"
+          ],
+          "locationHierarchy1": [
+            "2fcb99c455831013ea52fb338f2932d8"
+          ]
+        },
+        "maxResults": 1000
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "Okta",
+      "url": "https://www.okta.com/company/careers/engineering/?search=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "okta"
+      }
+    },
+    {
+      "name": "OpenAI",
+      "url": "https://jobs.ashbyhq.com/openai",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "openai"
+      }
+    },
+    {
+      "name": "Oracle",
+      "url": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_45001",
+      "provider": "Oracle Cloud HCM",
+      "provider_config": {
+        "host": "eeho.fa.us2.oraclecloud.com",
+        "siteNumber": "CX_45001",
+        "searchText": [
+          "frontend",
+          "front end",
+          "front-end",
+          "full stack",
+          "fullstack",
+          "ui engineer",
+          "web",
+          "design system",
+          "accessibility",
+          "javascript",
+          "react"
+        ],
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "Palantir",
+      "url": "https://www.palantir.com/careers/teams/software/?search=design+systems",
+      "provider": "Lever",
+      "provider_config": {
+        "site": "palantir"
+      }
+    },
+    {
+      "name": "Paramount",
+      "url": "https://careers.paramount.com",
+      "provider": "Sitemap",
+      "provider_config": {
+        "sitemap": "https://careers.paramount.com/sitemap.xml",
+        "jobPattern": "^/job/[^/]*-[A-Z]{2}-[0-9]{5}/",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Pattern",
+      "url": "https://www.pattern.com/careers#open-positions?search=frontend",
+      "provider": "Lever",
+      "provider_config": {
+        "site": "pattern"
+      },
+      "notes": "Lehi, UT; ecommerce acceleration platform"
+    },
+    {
+      "name": "PayPal",
+      "url": "https://careers.pypl.com/jobs/search?keywords=design+systems",
+      "provider": "Eightfold",
+      "provider_config": {
+        "host": "paypal.eightfold.ai",
+        "domain": "paypal.com",
+        "location": "United States"
+      }
+    },
+    {
+      "name": "Perplexity",
+      "url": "https://jobs.ashbyhq.com/perplexity",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "perplexity"
+      }
+    },
+    {
+      "name": "Pinterest",
+      "url": "https://www.pinterestcareers.com/jobs/?team=Engineering&remoteWorkOnly=true",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "pinterest"
+      }
+    },
+    {
+      "name": "Plaid",
+      "url": "https://jobs.ashbyhq.com/plaid",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "plaid"
+      }
+    },
+    {
+      "name": "Pluralsight",
+      "url": "https://pluralsight.wd1.myworkdayjobs.com/Careers",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "pluralsight",
+        "dc": "wd1",
+        "site": "Careers",
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "notes": "Draper, UT; tech learning platform, accessibility matters in edtech"
+    },
+    {
+      "name": "Podium",
+      "url": "https://job-boards.greenhouse.io/podium81",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "podium81"
+      },
+      "notes": "Lehi, UT; customer messaging SaaS, growing engineering team"
+    },
+    {
+      "name": "PostHog",
+      "url": "https://jobs.ashbyhq.com/posthog",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "posthog"
+      }
+    },
+    {
+      "name": "Qualcomm",
+      "url": "https://careers.qualcomm.com/careers/search#q=design+systems",
+      "provider": "Eightfold",
+      "provider_config": {
+        "host": "careers.qualcomm.com",
+        "domain": "qualcomm.com",
+        "location": "United States",
+        "searchText": [
+          "frontend",
+          "front end",
+          "full stack",
+          "web",
+          "ui",
+          "ux",
+          "design system",
+          "accessibility"
+        ]
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "Qualtrics",
+      "url": "https://www.qualtrics.com/careers/us/en/search-results?keywords=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "qualtrics"
+      },
+      "notes": "Provo/SLC; experience management platform, serious engineering team"
+    },
+    {
+      "name": "Ramp",
+      "url": "https://jobs.ashbyhq.com/ramp",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "ramp"
+      }
+    },
+    {
+      "name": "Reddit",
+      "url": "https://job-boards.greenhouse.io/reddit",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "reddit"
+      }
+    },
+    {
+      "name": "Remote OK",
+      "url": "https://remoteok.com/api",
+      "provider": "RemoteOK",
+      "scrape_enabled": false,
+      "notes": "Disabled 2026-10-01 after the first full run: aggregator surfaced only small/unknown companies; all archived."
+    },
+    {
+      "name": "Replit",
+      "url": "https://jobs.ashbyhq.com/replit",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "replit"
+      }
+    },
+    {
+      "name": "Riot Games",
+      "url": "https://www.riotgames.com/en/work-with-us/jobs#search=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "riotgames"
+      }
+    },
+    {
+      "name": "Rippling",
+      "url": "https://ats.rippling.com/rippling/jobs",
+      "provider": "Rippling ATS",
+      "provider_config": {
+        "board": "rippling",
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "Rivian",
+      "url": "https://careers.rivian.com/careers-home/jobs",
+      "provider": "iCIMS",
+      "provider_config": {
+        "host": "careers.rivian.com",
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "scrape_enabled": false,
+      "notes": "Disabled 2026-10-01 after the first full run: software roles are automotive/hardware (radar, power electronics, autonomy); 7 of 9 archived."
+    },
+    {
+      "name": "Roblox",
+      "url": "https://careers.roblox.com/jobs",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "roblox"
+      }
+    },
+    {
+      "name": "Salesforce",
+      "url": "https://careers.salesforce.com/en/jobs/?search=design+systems&team=Software+Engineering",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "salesforce",
+        "dc": "wd12",
+        "site": "External_Career_Site",
+        "appliedFacets": {
+          "jobFamilyGroup": [
+            "14fa3452ec7c1011f90d0002a2100000"
+          ],
+          "CF_-_REC_-_LRV_-_Job_Posting_Anchor_-_Country_from_Job_Posting_Location_Extended": [
+            "bc33aa3152ec42d4995f4791a106ed09"
+          ]
+        }
+      }
+    },
+    {
+      "name": "SeatGeek",
+      "url": "https://job-boards.greenhouse.io/seatgeek",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "seatgeek"
+      }
+    },
+    {
+      "name": "Shopify",
+      "url": "https://www.shopify.com/careers",
+      "provider": "Shopify",
+      "provider_config": {
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Slack",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/Slack",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "salesforce",
+        "dc": "wd12",
+        "site": "Slack",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Snapchat",
+      "url": "https://snapchat.wd1.myworkdayjobs.com/snap",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "snapchat",
+        "dc": "wd1",
+        "site": "snap",
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "Snowflake",
+      "url": "https://jobs.ashbyhq.com/snowflake",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "snowflake"
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "Socure",
+      "url": "https://jobs.ashbyhq.com/socure",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "socure"
+      }
+    },
+    {
+      "name": "SpaceX / Starlink",
+      "url": "https://www.spacex.com/careers/search#q=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "spacex"
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "Spotify",
+      "url": "https://www.lifeatspotify.com/jobs",
+      "provider": "Lever",
+      "provider_config": {
+        "site": "spotify"
+      }
+    },
+    {
+      "name": "Square / Block",
+      "url": "https://careers.squareup.com/us/en/jobs?search=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "block"
+      }
+    },
+    {
+      "name": "Squarespace",
+      "url": "https://job-boards.greenhouse.io/squarespace",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "squarespace"
+      }
+    },
+    {
+      "name": "Steno",
+      "url": "https://ats.rippling.com/steno-careers-page/jobs",
+      "provider": "Rippling ATS",
+      "provider_config": {
+        "board": "steno-careers-page"
+      }
+    },
+    {
+      "name": "Stripe",
+      "url": "https://stripe.com/jobs/search",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "stripe",
+        "detail": "jsonld",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Suno",
+      "url": "https://jobs.ashbyhq.com/suno",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "suno"
+      }
+    },
+    {
+      "name": "Target",
+      "url": "https://corporate.target.com/careers/job-search#q=design+systems",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "target",
+        "dc": "wd5",
+        "site": "targetcareers",
+        "appliedFacets": {
+          "jobFamilyGroup": [
+            "daccab9f1d25018677ebcc363457460e",
+            "daccab9f1d2501894c25c6363457230e"
+          ],
+          "Location_Country": [
+            "bc33aa3152ec42d4995f4791a106ed09"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Tesla",
+      "url": "https://www.tesla.com/careers/search#q=design+systems",
+      "provider": "Custom",
+      "scrape_enabled": false,
+      "notes": "Not scannable (checked 2026-10-01): tesla.com returns 403 to non-browser requests. Add individual roles with /interested."
+    },
+    {
+      "name": "The Home Depot",
+      "url": "https://careers.homedepot.com/job-search-results/?keyword=design+systems",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "homedepot",
+        "dc": "wd5",
+        "site": "CareerDepot",
+        "searchText": [
+          "software engineer",
+          "frontend",
+          "design system",
+          "accessibility"
+        ],
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Thumbtack",
+      "url": "https://careers.thumbtack.com/jobs",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "thumbtack"
+      }
+    },
+    {
+      "name": "Toast",
+      "url": "https://job-boards.greenhouse.io/toast",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "toast"
+      }
+    },
+    {
+      "name": "Tripadvisor",
+      "url": "https://job-boards.greenhouse.io/tripadvisor",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "tripadvisor",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Twilio",
+      "url": "https://www.twilio.com/en-us/company/jobs#q=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "twilio"
+      }
+    },
+    {
+      "name": "Uber",
+      "url": "https://jobs.uber.com/en/jobs/",
+      "provider": "Custom",
+      "scrape_enabled": false,
+      "notes": "Not scannable (checked 2026-10-01): careers moved to jobs.uber.com (an iCIMS-style /api/jobs site), but it sits behind a Cloudflare challenge that blocks non-browser requests (403). If Cloudflare is ever lifted, set provider iCIMS with provider_config {host: \"jobs.uber.com\"}. Add individual roles with /interested."
+    },
+    {
+      "name": "Unity",
+      "url": "https://unitytech.wd1.myworkdayjobs.com/Unity",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "unitytech",
+        "dc": "wd1",
+        "site": "Unity",
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "title_filter": "strict"
+    },
+    {
+      "name": "Vanta",
+      "url": "https://jobs.ashbyhq.com/vanta",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "vanta"
+      }
+    },
+    {
+      "name": "Vercel",
+      "url": "https://job-boards.greenhouse.io/vercel",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "vercel"
+      }
+    },
+    {
+      "name": "Visa",
+      "url": "https://www.visa.com/en_US/jobs/results/?q=design+systems",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "visa",
+        "dc": "wd5",
+        "site": "Visa",
+        "appliedFacets": {
+          "jobFamilyGroup": [
+            "e8c806498390105c6260a580252a0363",
+            "2745bc1368021016adc549cafd9a3ba5"
+          ]
+        },
+        "searchText": [
+          "frontend",
+          "front end",
+          "design system",
+          "design engineer",
+          "ui engineer",
+          "full stack",
+          "accessibility",
+          "web developer"
+        ],
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "title_filter": "strict",
+      "notes": "Fortune 500; large design systems investment at scale"
+    },
+    {
+      "name": "Vivint Smart Home",
+      "url": "https://jobs.smartrecruiters.com/Vivint",
+      "provider": "SmartRecruiters",
+      "provider_config": {
+        "company": "Vivint",
+        "countries": [
+          "United States of America"
+        ]
+      },
+      "notes": "Lehi, UT; consumer smart home product, has frontend/design teams"
+    },
+    {
+      "name": "Walmart",
+      "url": "https://careers.walmart.com/results?q=design+systems",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "walmart",
+        "dc": "wd504",
+        "site": "WalmartExternal",
+        "appliedFacets": {
+          "locationCountry": [
+            "bc33aa3152ec42d4995f4791a106ed09"
+          ],
+          "jobFamily": [
+            "e83ebdbd2a0a01e6af60e95a47e972c4",
+            "e83ebdbd2a0a01bab19ce25947e9d8c3"
+          ]
+        },
+        "maxResults": 600
+      },
+      "title_filter": "strict",
+      "notes": "Massive tech org; Walmart Global Tech is a serious engineering hub"
+    },
+    {
+      "name": "Warner Bros. Discovery",
+      "url": "https://careers.wbd.com/global/en/search-results?keywords=design+systems",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "warnerbros",
+        "dc": "wd5",
+        "site": "global",
+        "searchText": [
+          "frontend",
+          "front end",
+          "design system",
+          "design engineer",
+          "ui engineer",
+          "full stack",
+          "accessibility",
+          "web developer"
+        ],
+        "maxResults": 700,
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Waymo",
+      "url": "https://waymo.com/joinus/#open-positions?search=design+systems",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "waymo"
+      }
+    },
+    {
+      "name": "Waystar",
+      "url": "https://waystar.wd1.myworkdayjobs.com/Waystar",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "waystar",
+        "dc": "wd1",
+        "site": "Waystar",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Webflow",
+      "url": "https://job-boards.greenhouse.io/webflow",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "webflow"
+      }
+    },
+    {
+      "name": "Wellfound (AngelList)",
+      "url": "https://wellfound.com/jobs?role=frontend-engineer&remote=true",
+      "provider": "Custom",
+      "scrape_enabled": false,
+      "notes": "Not scannable (checked 2026-10-01): wellfound.com blocks automated requests. Add individual roles with /interested."
+    },
+    {
+      "name": "Workday",
+      "url": "https://www.workday.com/en-us/company/careers/open-positions.html#q=design+systems",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "workday",
+        "dc": "wd5",
+        "site": "Workday",
+        "appliedFacets": {
+          "jobFamilyGroup": [
+            "8c5ce7a1cffb43e0a819c249a49fcb00"
+          ],
+          "Location_Country": [
+            "bc33aa3152ec42d4995f4791a106ed09"
+          ]
+        }
+      }
+    },
+    {
+      "name": "WorkOS",
+      "url": "https://jobs.ashbyhq.com/workos",
+      "provider": "Ashby",
+      "provider_config": {
+        "org": "workos"
+      }
+    },
+    {
+      "name": "xAI (X / Twitter)",
+      "url": "https://job-boards.greenhouse.io/xai",
+      "provider": "Greenhouse",
+      "provider_config": {
+        "board_token": "xai"
+      },
+      "notes": "careers.x.com now redirects to x.ai/careers; X and xAI hire through xAI's Greenhouse board."
+    },
+    {
+      "name": "Zendesk",
+      "url": "https://zendesk.wd1.myworkdayjobs.com/zendesk",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "zendesk",
+        "dc": "wd1",
+        "site": "zendesk",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Zillow",
+      "url": "https://zillow.wd5.myworkdayjobs.com/Zillow_Group_External",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "zillow",
+        "dc": "wd5",
+        "site": "Zillow_Group_External",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    },
+    {
+      "name": "Zoom",
+      "url": "https://zoom.wd5.myworkdayjobs.com/Zoom",
+      "provider": "Workday",
+      "provider_config": {
+        "tenant": "zoom",
+        "dc": "wd5",
+        "site": "Zoom",
+        "countries": [
+          "United States of America"
+        ]
+      }
+    }
+  ]
+}

@@ -80,6 +80,7 @@ npm install
 cp .env.example .env                                            # add your email + phone
 npx tsx src/cli.ts db status                                    # creates data/job-search.db and shows row counts
 npx tsx src/cli.ts db import --json examples/seed.example.json  # load the fictional sample person
+npx tsx src/cli.ts db import --json examples/job-sites.seed.json  # optional: Carson's 172-company watchlist
 npx tsx src/cli.ts render --model specs/example.model.json      # render a résumé with no database at all
 open out/resume.pdf
 ```
@@ -167,7 +168,20 @@ few days, and `/tailor` the roles you mark interested.
 
 ### 1. Build your watchlist
 
-Each `job_sites` row is one company's job board. Add them to your seed file (or with `db sql`):
+**Fastest start: import Carson's watchlist.** `examples/job-sites.seed.json` has the 172 boards he
+scraped (big tech, AI companies, design-forward SaaS, edtech, and a cluster of Utah companies), each
+with a working adapter config. 153 are enabled. The other 19 are disabled, and their `notes` say why: no
+API, bot walls, or a poor fit for a frontend search.
+
+```sh
+npx tsx src/cli.ts db import --json examples/job-sites.seed.json
+npx tsx src/cli.ts db sql "update job_sites set scrape_enabled = 0 where name in ('Walmart', 'Target')"   # trim to taste
+```
+
+Re-importing updates rows by name, so you can edit the file and import again instead.
+
+To add your own, each `job_sites` row is one company's job board. Add them to your seed file (or with
+`db sql`):
 
 ```json
 { "id": "site-figma", "name": "Figma", "provider": "Greenhouse", "provider_config": { "board_token": "figma" } }
@@ -517,7 +531,7 @@ templates/          lib.typ · resume.typ · cover-letter.typ
 docs/images/        README screenshots
 specs/              selection specs (one per application) + example render models
 research/           company briefs (/tailor) and retro reports (/retro)
-examples/           seed.example.json (put reference PDFs of your own here; *.pdf is gitignored)
+examples/           seed.example.json · job-sites.seed.json (put reference PDFs of your own here; *.pdf is gitignored)
 data/               SQLite database + attached files (gitignored)
 build/ out/         render scratch + PDFs (gitignored)
 ```
