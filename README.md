@@ -11,6 +11,17 @@ rules, rendering PDFs, linting prose), and Claude makes the judgment calls (is t
 bullets to use, what the letter says). The repo's skills (`.claude/skills/`) tell Claude how to drive the
 code.
 
+<table>
+  <tr>
+    <td width="50%"><a href="docs/images/review.png"><img src="docs/images/review.png" alt="Review UI: one job at a time with Claude's score, summary and reasoning on the left and the job description on the right"></a></td>
+    <td width="50%"><a href="docs/images/editor.png"><img src="docs/images/editor.png" alt="Spec editor: the tailored résumé's headline, skills and bullets as editable lines on the left, rendered résumé preview on the right"></a></td>
+  </tr>
+  <tr>
+    <td align="center"><sub><b>Review</b>: Claude's triage beside the job description; one keypress per decision</sub></td>
+    <td align="center"><sub><b>Spec editor</b>: edit or annotate any line of a tailored résumé and letter</sub></td>
+  </tr>
+</table>
+
 > **Borrowing this from Carson?** Everything personal (his criteria, his voice guide, his résumé, his
 > research and past applications) is left in place as a worked example. [Make it yours](#make-it-yours)
 > lists the files to replace. The skills say "Carson" throughout; Claude reads that as "the user," so you
@@ -220,6 +231,10 @@ npx tsx src/cli.ts review     # http://localhost:4321
 A keyboard UI for everything Claude kept, best first (AI score + 3 × match bonus), with Claude's
 summary and reasoning beside the description. Rows Claude hasn't triaged come after.
 
+![Review UI showing a Vercel Next.js role: AI triage score 88/100 with summary and reasoning, compensation, location, match-bonus points and keywords on the left, the job description with stack keywords highlighted on the right, and Archive / Interested / New buttons](docs/images/review.png)
+
+<sub>Sample data: real public postings, scored against the fictional person in `examples/seed.example.json`.</sub>
+
 | Key | Action |
 |-----|--------|
 | ↑ | `interested`: make me materials |
@@ -261,6 +276,21 @@ preview, and leave a note on any line. **Save for Claude** (⌘S) writes your ed
 `specs/feedback/`. Tell Claude to address them; it replies under each note and re-renders, and the open
 page reloads.
 
+![Spec editor: Claude's round summary at the top, then the headline, key skills and experience bullets as editable lines with Note, reorder and remove controls and word counts; the right column has a general note box, Save for Claude, and the rendered résumé preview with its page-fill status](docs/images/editor.png)
+
+Notes and Claude's replies stay attached to the line they're about:
+
+![Spec editor scrolled to the cover letter: each paragraph is an editable line, one shows the user's note and Claude's reply beneath it, and the preview pane shows the rendered cover letter](docs/images/editor-notes.png)
+
+The finished output, one full page each:
+
+<table>
+  <tr>
+    <td width="50%"><a href="docs/images/resume.png"><img src="docs/images/resume.png" alt="Rendered one-page résumé: name and headline with contact details, Key Skills, Experience with bulleted roles, Education"></a></td>
+    <td width="50%"><a href="docs/images/cover-letter.png"><img src="docs/images/cover-letter.png" alt="Rendered cover letter with the same masthead as the résumé and four short paragraphs"></a></td>
+  </tr>
+</table>
+
 ### 6. Submit (you)
 
 When you're happy, have Claude attach and export the final version (or run it yourself):
@@ -292,7 +322,8 @@ Submit the application yourself, then mark it `applied` (ask Claude, or use `db 
 
 ## Changing the résumé template
 
-Rendering is three steps:
+The default template is the one shown [above](#5-tailor-claude--you): Arial, US Letter, a single-line
+header per role, and a one-page fit enforced by the render report. Rendering is three steps:
 
 ```
 selection spec (specs/x.json)
@@ -483,6 +514,7 @@ src/
   review/ editor/   local web UIs (cli review, cli edit)
   tailor.ts triage.ts intake.ts bullets.ts assess.ts liveness.ts priority.ts …
 templates/          lib.typ · resume.typ · cover-letter.typ
+docs/images/        README screenshots
 specs/              selection specs (one per application) + example render models
 research/           company briefs (/tailor) and retro reports (/retro)
 examples/           seed.example.json (put reference PDFs of your own here; *.pdf is gitignored)
